@@ -64,29 +64,6 @@ class UtilityPanel
             'activate_new_site'
         ));
 
-        // Load public-facing style sheet and JavaScript.
-        add_action('wp_enqueue_scripts', array(
-            $this,
-            'enqueue_styles'
-        ));
-        add_action('wp_enqueue_scripts', array(
-            $this,
-            'enqueue_scripts'
-        ));
-
-        /* action method
-        */
-        add_action('@TODO', array(
-            $this,
-            'action_method_name'
-        ));
-        /* filter method
-        */
-        add_filter('@TODO', array(
-            $this,
-            'filter_method_name'
-        ));
-
         $this->type = $this->get_pane_type;
     }
 
@@ -260,53 +237,4 @@ class UtilityPanel
         load_plugin_textdomain($domain, FALSE, basename(plugin_dir_path(dirname(__FILE__))) . '/languages/');
     }
 
-    /**
-     * Register and enqueue public-facing style sheet.
-     *
-     * @since    0.1
-     */
-    public function enqueue_styles() {
-        wp_enqueue_style($this->plugin_slug . '-plugin-styles', GGUPANEL_URI . 'assets/css/public.css' , array() , self::VERSION);
-    }
-
-    /**
-     * Register and enqueues public-facing JavaScript files.
-     *
-     * @since    0.1
-     */
-    public function enqueue_scripts() {
-        wp_enqueue_script($this->plugin_slug . '-plugin-script', GGUPANEL_URI . 'assets/js/public.js' , array(
-            'jquery'
-        ) , self::VERSION);
-    }
-
-    /**
-     * NOTE:  Actions are points in the execution of a page or process
-     *        lifecycle that WordPress fires.
-     *
-     *        Actions:    http://codex.wordpress.org/Plugin_API#Actions
-     *        Reference:  http://codex.wordpress.org/Plugin_API/Action_Reference
-     *
-     * @since    0.1
-     */
-    public function action_method_name() {
-
-        // @TODO: Define your action hook callback here
-
-    }
-
-    /**
-     * NOTE:  Filters are points of execution in which WordPress modifies data
-     *        before saving it or sending it to the browser.
-     *
-     *        Filters: http://codex.wordpress.org/Plugin_API#Filters
-     *        Reference:  http://codex.wordpress.org/Plugin_API/Filter_Reference
-     *
-     * @since    0.1
-     */
-    public function filter_method_name() {
-
-        // @TODO: Define your filter hook callback here
-
-    }
 }

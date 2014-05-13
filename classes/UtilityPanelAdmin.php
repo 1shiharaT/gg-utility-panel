@@ -45,14 +45,10 @@ class UtilityPanelAdmin
         $this->plugin_slug   = $plugin->get_plugin_slug();
 
         // // Load admin style sheet and JavaScript.
-        add_action('admin_enqueue_scripts', array(
-            $this,
-            'enqueue_admin_styles'
-        ));
-        add_action('admin_enqueue_scripts', array(
-            $this,
-            'enqueue_admin_scripts'
-        ));
+        add_action('wp_enqueue_scripts', array( $this, 'enqueue_admin_styles' ));
+        add_action('wp_enqueue_scripts', array( $this, 'enqueue_admin_scripts'));
+        add_action('admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ));
+        add_action('admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts'));
 
         // Add the options page and menu item.
         add_action('admin_menu', array(
@@ -70,18 +66,9 @@ class UtilityPanelAdmin
         /*
          * print html admin footer
         */
-        add_action('admin_footer', array(
-            $this,
-            'print_panel_footer'
-        ));
+        add_action('wp_footer', array( $this ,'print_panel_footer' ));
+        add_action('admin_footer', array( $this ,'print_panel_footer' ));
 
-        /*
-         * Define custom functionality.
-        */
-        add_filter('@TODO', array(
-            $this,
-            'filter_method_name'
-        ));
     }
 
     /**
@@ -170,8 +157,10 @@ class UtilityPanelAdmin
      * @since    1.0.0
      */
     public function print_panel_footer() {
+      global $post;
+      // if ( ! is_user_logged_in() ) return ;
       $panel_module_type = UtilityPanelType::get_instance();
-      include GGUPANEL_PATH . 'views/view.php';
+      include GGUPANEL_PATH . 'views/panel.php';
     }
 
     /**
@@ -180,6 +169,45 @@ class UtilityPanelAdmin
      */
     public function filter_method_name() {
         // @TODO: Define your filter hook callback here
+    }
+
+    /**
+     * filter
+     * @since    1.0.0
+     */
+    public function gg_utility_icons(  $module , $num=0 ) {
+      $icon = '';
+      switch ( $module ) {
+        case 'heading':
+          $icon = array(
+                    '<div class="dashicons dashicons-welcome-add-page"></div>',
+                  );
+          break;
+        case 'add':
+          $icon = array(
+                    '<div class="fs1" aria-hidden="true" data-icon="&#xe00f;"></div>',
+                  );
+          break;
+        case 'design':
+          $icon = array(
+                    '<div class="fs1" aria-hidden="true" data-icon="&#xe027;"></div>',
+                    '<div class="fs1" aria-hidden="true" data-icon="&#xe013;"></div>',
+                    '<div class="fs1" aria-hidden="true" data-icon="&#xe010;"></div>',
+                    '<div class="fs1" aria-hidden="true" data-icon="&#xe02c;"></div>'
+                  );
+          break;
+        case 'manage':
+          $icon = array(
+                    '<div class="fs1" aria-hidden="true" data-icon="&#xe00a;"></div>',
+                    '<div class="dashicons fs1 dashicons-editor-unlink"></div>',
+                    '<div class="dashicons fs1 dashicons-welcome-view-site"></div>',
+                    '<div class="fs1" aria-hidden="true" data-icon="&#xe014;"></div>',
+                  );
+          break;
+        default:
+          break;
+      }
+      echo $icon[$num];
     }
 
 }

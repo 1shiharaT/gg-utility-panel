@@ -8,7 +8,7 @@
  *
  * Plugin Name:       Utility Panel
  * Plugin URI:        https://github.com/1shiharaT/gg-utility-panel
- * Description:       @TODO
+ * Description:       管理画面にショートカットパネルを設置
  * Version:           1.0.0
  * Author:            ishihara takashi
  * Author URI:        http://web-layman.com
@@ -55,9 +55,9 @@ add_action( 'plugins_loaded', array( 'UtilityPanelType', 'get_instance' ) );
 /*----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
-if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+// if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
   require_once( plugin_dir_path( __FILE__ ) . 'classes/UtilityPanelAdmin.php' );
   add_action( 'plugins_loaded', array( 'UtilityPanelAdmin', 'get_instance' ) );
 
-}
+// }
