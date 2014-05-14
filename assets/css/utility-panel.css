@@ -20,12 +20,22 @@ body.wp-admin {
   cursor: pointer;
 }
 .gg-utility-pane-arrow .dashicons {
-  font-size: 3em;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  padding-top: 7px;
+  width: 40px;
+  height: 33px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  display: block;
+  font-size: 2.3em;
+  color: #FFF;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+  background: #0074a2;
+  border-radius: 50%;
 }
 
 #gg-utility-pane {
   position: fixed;
-  overflow: auto;
   right: -420px;
   font-size: 12px;
   z-index: 100000;
@@ -42,6 +52,10 @@ body.wp-admin {
   box-shadow: -3px 0px 1px rgba(0, 0, 0, 0.1);
   -moz-box-sizing: content-box;
   box-sizing: content-box;
+}
+#gg-utility-pane .gg-utility-pane-inner {
+  overflow: auto;
+  height: 100%;
 }
 #gg-utility-pane:hover .gg-utility-pane-arrow {
   opacity: 0.1;
@@ -88,13 +102,24 @@ body.wp-admin {
   border: 1px solid #CCC;
   margin-bottom: 10px;
   background: #FFF;
+  -webkit-transition: all ease-in 0.1s;
+  transition: all ease-in 0.1s;
 }
-#gg-utility-pane .gg-icon-buttons .gg-icon-button a .circle:hover {
-  background: #0074A2;
+#gg-utility-pane .gg-icon-buttons .gg-icon-button a .circle:hover, #gg-utility-pane .gg-icon-buttons .gg-icon-button a .circle.active {
+  border-color: #0074a2;
+  background: #0074a2;
   color: #FFF;
 }
 #gg-utility-pane .gg-icon-buttons .gg-icon-button a .title {
   display: block;
+  background: #0074a2;
+  padding-top: 3px;
+  padding-bottom: 2px;
+  color: #FFF;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 #gg-utility-pane .gg-icon-buttons .gg-icon-button a .fs1 {
   margin-top: 0.8em;
@@ -103,10 +128,6 @@ body.wp-admin {
   font-size: 2.2em;
   -webkit-transition: all ease-in 0.3s;
   transition: all ease-in 0.3s;
-}
-#gg-utility-pane .gg-icon-buttons .gg-icon-button a:hover .fs1 {
-  font-size: 2.8em;
-  margin-top: 16px;
 }
 
 /* Line icons */

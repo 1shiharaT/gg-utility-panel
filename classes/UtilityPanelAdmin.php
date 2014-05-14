@@ -96,14 +96,8 @@ class UtilityPanelAdmin
      */
     public function enqueue_admin_styles() {
 
-        // if (!isset($this->plugin_screen_hook_suffix)) {
-        //     return;
-        // }
+      wp_enqueue_style( $this->plugin_slug . '-admin-styles', GGUPANEL_URI . 'assets/css/utility-panel.css' , array() , UtilityPanel::VERSION);
 
-        // $screen = get_current_screen();
-        // if ( $this->plugin_screen_hook_suffix == $screen->id) {
-            wp_enqueue_style( $this->plugin_slug . '-admin-styles', GGUPANEL_URI . 'assets/css/utility-panel.css' , array() , UtilityPanel::VERSION);
-        // }
     }
 
     /**
@@ -114,9 +108,9 @@ class UtilityPanelAdmin
      * @return    null    Return early if no settings page is registered.
      */
     public function enqueue_admin_scripts() {
-            wp_enqueue_script( $this->plugin_slug . '-admin-script', GGUPANEL_URI . 'assets/js/utility-panel.js' , array(
-                'jquery'
-            ) , UtilityPanel::VERSION);
+      wp_enqueue_script( $this->plugin_slug . '-admin-script', GGUPANEL_URI . 'assets/js/utility-panel.js' , array(
+          'jquery'
+      ) , UtilityPanel::VERSION);
     }
 
     /**
@@ -146,7 +140,6 @@ class UtilityPanelAdmin
      * @since    1.0.0
      */
     public function add_action_links($links) {
-
         return array_merge(array(
             'settings' => '<a href="' . admin_url('options-general.php?page=' . $this->plugin_slug) . '">' . __('設定', $this->plugin_slug) . '</a>'
         ) , $links);
@@ -158,7 +151,7 @@ class UtilityPanelAdmin
      */
     public function print_panel_footer() {
       global $post;
-      // if ( ! is_user_logged_in() ) return ;
+      if ( !is_user_logged_in() || wp_is_mobile() ) return ;
       $panel_module_type = UtilityPanelType::get_instance();
       include GGUPANEL_PATH . 'views/panel.php';
     }
@@ -178,16 +171,20 @@ class UtilityPanelAdmin
     public function gg_utility_icons(  $module , $num=0 ) {
       $icon = '';
       switch ( $module ) {
+
         case 'heading':
           $icon = array(
                     '<div class="dashicons dashicons-welcome-add-page"></div>',
                   );
           break;
+
         case 'add':
           $icon = array(
                     '<div class="fs1" aria-hidden="true" data-icon="&#xe00f;"></div>',
+                    '<div class="fs1" aria-hidden="true" data-icon="&#xe00c;"></div>'
                   );
           break;
+
         case 'design':
           $icon = array(
                     '<div class="fs1" aria-hidden="true" data-icon="&#xe027;"></div>',
@@ -196,6 +193,7 @@ class UtilityPanelAdmin
                     '<div class="fs1" aria-hidden="true" data-icon="&#xe02c;"></div>'
                   );
           break;
+
         case 'manage':
           $icon = array(
                     '<div class="fs1" aria-hidden="true" data-icon="&#xe00a;"></div>',
@@ -204,6 +202,7 @@ class UtilityPanelAdmin
                     '<div class="fs1" aria-hidden="true" data-icon="&#xe014;"></div>',
                   );
           break;
+
         default:
           break;
       }

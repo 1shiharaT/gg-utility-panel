@@ -7,6 +7,19 @@
     <div class="gg-icon-button-wrap">
       <h3 class="gg-in-effect"><div class="dashicons dashicons-screenoptions"></div> <?php echo __( '追加', $this->plugin_slug ); ?></h3>
       <ul class="gg-icon-buttons">
+      <?php
+      if ( is_single() || is_page() ) {
+        global $post;
+        $post_type_object = get_post_type_object( $post->post_type );
+        if ( $post_type_object ) { ?>
+        <li class="gg-icon-button gg-in-effect">
+          <a href="<?php echo admin_url( sprintf( $post_type_object->_edit_link . '&action=edit', $post->ID ) ); ?>" title="New page">
+            <div class="circle active"><?php $this->gg_utility_icons( 'add' , 0 ); ?></div>
+            <span class="title"><?php echo __( '現在の記事を編集' , $this->plugin_slug );?> </span>
+          </a>
+        </li>
+        <?php }
+        } ?>
         <li class="gg-icon-button gg-in-effect">
           <a href="<?php echo admin_url( '/post-new.php?post_type=post' ) ?>" title="New page">
             <div class="circle"><?php $this->gg_utility_icons( 'add' , 0 ); ?></div>
@@ -21,13 +34,13 @@
         </li>
         <li class="gg-icon-button gg-in-effect">
           <a href="<?php echo admin_url( '/post-new.php?post_type=page' ) ?>" title="New page">
-            <div class="circle"><?php $this->gg_utility_icons( 'add' , 0 ); ?></div>
+            <div class="circle"><?php $this->gg_utility_icons( 'add' , 1 ); ?></div>
             <span class="title"><?php echo __( 'カテゴリーを追加', $this->plugin_slug );?> </span>
           </a>
         </li>
         <li class="gg-icon-button gg-in-effect">
           <a href="http://leafcolor.com/forest-admin/wp-admin/media-new.php" title="Media">
-            <div class="circle"><?php $this->gg_utility_icons( 'add' , 0 ); ?></div>
+            <div class="circle"><?php $this->gg_utility_icons( 'add' , 1 ); ?></div>
             <span class="title"><?php echo __( 'タグを追加' , $this->plugin_slug );?> </span>
           </a>
         </li>
@@ -41,9 +54,13 @@
           </a>
         </li>
         <li class="gg-icon-button gg-in-effect">
-          <a href="<?php echo admin_url( '/customize.php' ) ?>" title="Media">
+          <?php if ( is_admin() ) { ?>
+            <a href="<?php echo admin_url( '/customize.php' ) ?>" title="Media">
+          <?php } else { ?>
+            <a href="<?php echo admin_url( '/customize.php?url='. get_permalink() ) ?>" title="Media">
+          <?php } ?>
             <div class="circle"><?php $this->gg_utility_icons( 'design' , 1 ); ?></div>
-            <span class="title"><?php echo __( 'カスタマイズ' , $this->plugin_slug );?> </span>
+            <span class="title"><?php echo __( 'デザイン編集' , $this->plugin_slug );?> </span>
           </a>
         </li>
         <li class="gg-icon-button gg-in-effect">
